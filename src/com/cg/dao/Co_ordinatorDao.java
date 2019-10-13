@@ -17,7 +17,7 @@ public interface Co_ordinatorDao {
 	
 	boolean removeTrainingProgram(int code);
 	
-	Participant addParticipant(Participant participant);
+	ParticipantDao addParticipant(ParticipantDao participant);
 	
 	List<Feedback> viewTrainingProgramReport();
 	
