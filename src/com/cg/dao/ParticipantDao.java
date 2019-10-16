@@ -2,7 +2,7 @@ package com.cg.dao;
 
 import com.cg.bean.Feedback;
 
-public interface Participant {
+public interface ParticipantDao {
 
 	Feedback addFeedback(Feedback feedback);
 }
