@@ -5,6 +5,14 @@ public class EmployeeMaster {
 	private String employeeName;
 	private String password;
 	private String role;
+	private String userSalt;
+	
+	public String getUserSalt() {
+		return userSalt;
+	}
+	public void setUserSalt(String userSalt) {
+		this.userSalt = userSalt;
+	}
 	public int getEmployeeId() {
 		return employeeId;
 	}

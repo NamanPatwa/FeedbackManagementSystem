@@ -28,9 +28,9 @@ public interface AdminDao {
 	
 	boolean removeCourse(int id) throws InvalidCourseException;
 	
-	Faculty addFacultySkill(Faculty faculty);
+	Faculty addFacultySkill(int id, String skillset);
 	
-	Faculty addFacultySkillset(List<String> skillSet);
+	//Faculty addFacultySkillset(List<String> skillSet);
 	
 	List<Feedback> viewTrainingProgramReport();
 	
