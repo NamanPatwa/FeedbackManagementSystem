@@ -22,9 +22,9 @@ public class AdminDaoImpl implements AdminDao {
 		try {
 			conn = JdbcUtil.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(saveCourseQuery);
-			stmt.setInt(1, course.getCourseId());
-			stmt.setString(2, course.getCourseName());
-			stmt.setInt(3, course.getDays());
+			//stmt.setInt(1, course.getCourseId());
+			stmt.setString(1, course.getCourseName());
+			stmt.setInt(2, course.getDays());
 			
 			stmt.executeUpdate();
 			ResultSet result = conn.createStatement().executeQuery(getCourseIdQuery);
@@ -110,9 +110,36 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public CourseMaster updateCourse(CourseMaster course) {
-		// TODO Auto-generated method stub
-		return null;
+	public CourseMaster updateCourse(CourseMaster course) throws InvalidCourseException {
+		Connection conn = null;
+		
+		try {
+			conn = JdbcUtil.getConnection();
+			PreparedStatement stmt1 = conn.prepareStatement(fetchCourseIdQuery);
+			stmt1.setInt(1, course.getCourseId());
+			ResultSet result = stmt1.executeQuery();
+			if(!result.next())
+				throw new InvalidCourseException("Course details can not be updated.. course id not found.");
+			else {
+				PreparedStatement stmt2 = conn.prepareStatement(updateCourseByIdQuery);
+				stmt2.setString(1, course.getCourseName());
+				stmt2.setInt(2, course.getDays());
+				stmt2.setInt(3, course.getCourseId());
+				stmt2.executeUpdate();
+				stmt2.execute();
+			}
+			return course;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new InvalidCourseException(e.getMessage());
+		} finally {
+			try {
+				if(conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override

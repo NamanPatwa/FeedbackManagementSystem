@@ -25,7 +25,8 @@ public class FmsCli {
 			System.out.println("2-Fetch Course details by course id.");
 			System.out.println("3-Fetch All Course details.");
 			System.out.println("4-Remove Course by course id.");
-			System.out.println("5-System Exit.");
+			System.out.println("5-Update Course by course id.");
+			System.out.println("6-System Exit.");
 			option = console.nextInt();
 			
 			switch(option) {
@@ -33,10 +34,44 @@ public class FmsCli {
 			case 2: fetchCourseDetails(); break;
 			case 3: fetchAllCourseDetails(); break;
 			case 4: removeCourseByCourseId(); break;
-			case 5: System.exit(0);
+			case 5: updateCoureByCourseId(); break;
+			case 6: System.exit(0);
 			default: System.out.println("Please add valid information..");
 			}
 		}
+	}
+
+	private static void updateCoureByCourseId() {
+		AdminService service = new AdminServiceImpl();
+		String courseid, coursename, coursedays;
+		
+		do {
+			System.out.println("Enter course Id: ");
+			courseid = console.next();
+		} while(!service.validateId(courseid));
+		
+		do {
+			System.out.println("Enter Course Name: ");
+			coursename = console.next();
+		} while(!service.validateName(coursename));
+			
+		do {
+			System.out.println("Enter Course Days: ");
+			coursedays = console.next();
+		} while(!service.validateDays(coursedays));
+		
+		CourseMaster course = new CourseMaster();
+		course.setCourseId(Integer.parseInt(courseid));
+		course.setCourseName(coursename);
+		course.setDays(Integer.parseInt(coursedays));
+		
+		try {
+			CourseMaster c = service.updateCourse(course);
+			System.out.println("Course details are updated with course id: " + courseid);
+		} catch (InvalidCourseException e) {
+			System.out.println("Course details not updated..");
+		}
+		
 	}
 
 	private static void removeCourseByCourseId() {
@@ -95,10 +130,10 @@ public class FmsCli {
 		AdminService service = new AdminServiceImpl();
 		String courseid, coursename, coursedays;
 		
-		do {
-		System.out.println("Enter Course ID: ");
-		courseid = console.next();
-		} while(!service.validateId(courseid));
+//		do {
+//		System.out.println("Enter Course ID: ");
+//		courseid = console.next();
+//		} while(!service.validateId(courseid));
 		
 		do {
 		System.out.println("Enter Course Name: ");
@@ -111,7 +146,7 @@ public class FmsCli {
 		} while(!service.validateDays(coursedays));
 		
 		CourseMaster course = new CourseMaster();
-		course.setCourseId(Integer.parseInt(courseid));
+		//course.setCourseId(Integer.parseInt(courseid));
 		course.setCourseName(coursename);
 		course.setDays(Integer.parseInt(coursedays));
 		

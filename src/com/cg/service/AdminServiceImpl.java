@@ -34,7 +34,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public CourseMaster updateCourse(CourseMaster course) {
+	public CourseMaster updateCourse(CourseMaster course) throws InvalidCourseException {
 		return dao.updateCourse(course);
 	}
 

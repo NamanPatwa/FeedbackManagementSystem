@@ -33,7 +33,7 @@ public interface AdminService {
 	
 	CourseMaster getCourseByCourseId(int id) throws InvalidCourseException;
 	
-	CourseMaster updateCourse(CourseMaster course);
+	CourseMaster updateCourse(CourseMaster course) throws InvalidCourseException;
 	
 	boolean removeCourse(int id) throws InvalidCourseException;
 	
