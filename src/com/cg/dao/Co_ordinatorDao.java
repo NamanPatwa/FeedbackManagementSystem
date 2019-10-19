@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.cg.bean.Feedback;
 import com.cg.bean.TrainingProgram;
+import com.cg.exception.CourseNotFoundException;
+import com.cg.exception.InvalidCourseException;
+import com.cg.exception.TrainingProgramNotFoundException;
 
 public interface Co_ordinatorDao {
 	
@@ -12,18 +15,10 @@ public interface Co_ordinatorDao {
 	String fetchAllTrainingProgramQuery = "SELECT * from TRAINING_MASTER ";
 	String fetchTrainingProgramByTrainingCodeQuery = "SELECT * from TRAINING_MASTER "
 			+ "where= TRAINING_CODE=?";
-    String updateTrainingProgramQuery = "UPDATE TRAINING_MASTER SET START_DATE = ?, END_DATE = ? "
-    		+ "where TRAINING_CODE=?";
+    String updateTrainingProgramQuery = "UPDATE TRAINING_MASTER SET FACULTY_CODE=?, "
+    		+ "COURSE_CODE=?, START_DATE = ?, END_DATE = where TRAINING_CODE=?";
     String removeTrainingProgramQuery="DELETE from TRAINING_MASTER where TRAINING_CODE=?";
-    String addParticipantQuery="INSERT into TRAINING_PARTICIPANT_MASTER values (?,?)";
-    String viewTrainingProgramReportQuery="SELECT * from FEEDBACK_MASTER where TRAINING_CODE=?";
-    String viewFacultyWiseReportQuery="SELECT * from FEEDBACK_MASTER where (select TRAINING_CODE "
-    		+ "from TRAINING_MASTER)";
-    String viewFeedbackDefaultersReportQuery="SELECT * FROM EMPLOYEE_MASTER where(SELECT "
-    		+ "PARTICIPANT_ID from "
-    		+ "FEEDBACK_MASTER where (FB_PRS_COMM==null OR FB_CLRFY_DBTS==null "
-    		+ "OR FB_TM==null OR FB_HND_OUT==null OR FB_HW_SW_NTWRK==null OR COMMENTS==null "
-    		+ "OR SUGGESTIONS==null)";
+    
     
 
 	TrainingProgram addTrainingProgram(TrainingProgram training);
@@ -36,13 +31,13 @@ public interface Co_ordinatorDao {
 	// date validation : date should be valid, end date should be greater than start date
 	// current date se jyada dono
 	
-	List<TrainingProgram> fetchAllTrainingProgram();
+	List<TrainingProgram> fetchAllTrainingProgram() throws TrainingProgramNotFoundException;
 	
-	TrainingProgram fetchTrainingProgramByTrainingCode(int code);
+	TrainingProgram fetchTrainingProgramByTrainingCode(int code) throws TrainingProgramNotFoundException;
 	
-	TrainingProgram updateTrainingProgram(TrainingProgram training);
+	TrainingProgram updateTrainingProgram(int code) throws TrainingProgramNotFoundException;
 	
-	boolean removeTrainingProgram(int code);
+	boolean removeTrainingProgram(int code) throws TrainingProgramNotFoundException;
 	
 	
 	ParticipantDao addParticipant(ParticipantDao participant);
