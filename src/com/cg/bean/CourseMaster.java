@@ -4,6 +4,7 @@ public class CourseMaster {
 	private int courseId;
 	private String courseName;
 	private int days;
+	
 	public int getCourseId() {
 		return courseId;
 	}
