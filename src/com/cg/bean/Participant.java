@@ -3,6 +3,7 @@ package com.cg.bean;
 public class Participant {
 	private int trainingcode;
 	private int participantId;
+	
 	public int getTrainingcode() {
 		return trainingcode;
 	}
